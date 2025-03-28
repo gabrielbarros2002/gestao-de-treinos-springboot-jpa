@@ -1,12 +1,10 @@
 package com.barros.gestao_de_treinos.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Treino implements Serializable {
@@ -15,6 +13,9 @@ public class Treino implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
+
+    @OneToMany(mappedBy = "id.treino")
+    private Set<TreinoExercicio> exercicios;
 
     public Treino() {
     }
@@ -38,6 +39,14 @@ public class Treino implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Set<TreinoExercicio> getExercicios() {
+        return exercicios;
+    }
+
+    public void setExercicios(Set<TreinoExercicio> exercicios) {
+        this.exercicios = exercicios;
     }
 
     @Override

@@ -1,11 +1,7 @@
 package com.barros.gestao_de_treinos.config;
 
-import com.barros.gestao_de_treinos.entities.Exercicio;
-import com.barros.gestao_de_treinos.entities.GrupoMuscular;
-import com.barros.gestao_de_treinos.entities.Usuario;
-import com.barros.gestao_de_treinos.repositories.ExercicioRepository;
-import com.barros.gestao_de_treinos.repositories.GrupoMuscularRepository;
-import com.barros.gestao_de_treinos.repositories.UsuarioRepository;
+import com.barros.gestao_de_treinos.entities.*;
+import com.barros.gestao_de_treinos.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +23,12 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ExercicioRepository exercicioRepository;
+
+    @Autowired
+    private TreinoRepository treinoRepository;
+
+    @Autowired
+    private TreinoExercicioRepository treinoExercicioRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -50,5 +52,15 @@ public class TestConfig implements CommandLineRunner {
 
         exercicioRepository.saveAll(Arrays.asList(exercicio1, exercicio2, exercicio3));
 
+        Treino treino1 = new Treino(null, "Full body");
+        Treino treino2 = new Treino(null, "Costas");
+
+        treinoRepository.saveAll(Arrays.asList(treino1, treino2));
+
+        TreinoExercicio treinoExercicio1 = new TreinoExercicio(treino1, exercicio1, 3, 10, 15.00, 60);
+        TreinoExercicio treinoExercicio2 = new TreinoExercicio(treino1, exercicio2, 3, 10, 15.00, 60);
+        TreinoExercicio treinoExercicio3 = new TreinoExercicio(treino1, exercicio3, 3, 10, 15.00, 60);
+
+        treinoExercicioRepository.saveAll(Arrays.asList(treinoExercicio1, treinoExercicio2, treinoExercicio3));
     }
 }
