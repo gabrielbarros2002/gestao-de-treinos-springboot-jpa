@@ -1,7 +1,7 @@
 package com.barros.gestao_de_treinos.resources;
 
-import com.barros.gestao_de_treinos.entities.Usuario;
-import com.barros.gestao_de_treinos.services.UsuarioService;
+import com.barros.gestao_de_treinos.entities.GrupoMuscular;
+import com.barros.gestao_de_treinos.services.GrupoMuscularService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/usuarios")
-public class UsuarioResource {
+@RequestMapping(value = "/grupos-musculares")
+public class GrupoMuscularResource {
 
     @Autowired
-    private UsuarioService service;
+    private GrupoMuscularService service;
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> findAll() {
-        List<Usuario> list = service.findAll();
+    public ResponseEntity<List<GrupoMuscular>> findAll() {
+        List<GrupoMuscular> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Usuario> findById(@PathVariable Long id) {
-        Usuario obj = service.findById(id);
+    public ResponseEntity<GrupoMuscular> findById(@PathVariable Long id) {
+        GrupoMuscular obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 }

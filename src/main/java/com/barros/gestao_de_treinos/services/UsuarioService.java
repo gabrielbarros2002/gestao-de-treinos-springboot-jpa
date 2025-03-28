@@ -1,7 +1,7 @@
 package com.barros.gestao_de_treinos.services;
 
 import com.barros.gestao_de_treinos.entities.Usuario;
-import com.barros.gestao_de_treinos.repositories.UsuarioRespository;
+import com.barros.gestao_de_treinos.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +12,14 @@ import java.util.Optional;
 public class UsuarioService {
 
     @Autowired
-    private UsuarioRespository usuarioRespository;
+    private UsuarioRepository respository;
 
     public List<Usuario> findAll() {
-        return usuarioRespository.findAll();
+        return respository.findAll();
     }
 
     public Usuario findById(Long id) {
-        Optional<Usuario> obj = usuarioRespository.findById(id);
+        Optional<Usuario> obj = respository.findById(id);
         return obj.get();
     }
 }

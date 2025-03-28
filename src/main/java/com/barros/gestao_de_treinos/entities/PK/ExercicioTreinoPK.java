@@ -1,24 +1,24 @@
-package com.barros.gestao_de_treinos.entities;
+package com.barros.gestao_de_treinos.entities.PK;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class ExercicioTreinoId implements Serializable {
+public class ExercicioTreinoPK implements Serializable {
 
-    @Column(name = "treino_id")
+    @JoinColumn(name = "treino_id")
     private Long treinoId;
 
-    @Column(name = "exercicio_id")
+    @JoinColumn(name = "exercicio_id")
     private Long exercicioId;
 
-    public ExercicioTreinoId() {
+    public ExercicioTreinoPK() {
     }
 
-    public ExercicioTreinoId(Long treinoId, Long exercicioId) {
+    public ExercicioTreinoPK(Long treinoId, Long exercicioId) {
         this.treinoId = treinoId;
         this.exercicioId = exercicioId;
     }
@@ -42,7 +42,7 @@ public class ExercicioTreinoId implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        ExercicioTreinoId that = (ExercicioTreinoId) o;
+        ExercicioTreinoPK that = (ExercicioTreinoPK) o;
         return Objects.equals(treinoId, that.treinoId) && Objects.equals(exercicioId, that.exercicioId);
     }
 
