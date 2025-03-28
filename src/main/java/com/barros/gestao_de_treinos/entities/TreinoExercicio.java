@@ -1,6 +1,7 @@
 package com.barros.gestao_de_treinos.entities;
 
 import com.barros.gestao_de_treinos.entities.PK.TreinoExercicioPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -29,6 +30,7 @@ public class TreinoExercicio implements Serializable {
         this.descansoSegundos = descansoSegundos;
     }
 
+    @JsonIgnore
     public Treino getTreino() {
         return id.getTreino();
     }
