@@ -30,4 +30,15 @@ public class UsuarioService {
     public void delete(Long id) {
         respository.deleteById(id);
     }
+
+    public Usuario update(Long id, Usuario obj) {
+        Usuario entity = respository.getReferenceById(id);
+        updateData(entity, obj);
+        return respository.save(entity);
+    }
+
+    private void updateData(Usuario entity, Usuario obj) {
+        entity.setNome(obj.getNome());
+        entity.setEmail(obj.getEmail());
+    }
 }
