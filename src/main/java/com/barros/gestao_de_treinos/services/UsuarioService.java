@@ -2,7 +2,11 @@ package com.barros.gestao_de_treinos.services;
 
 import com.barros.gestao_de_treinos.entities.Usuario;
 import com.barros.gestao_de_treinos.repositories.UsuarioRepository;
+import com.barros.gestao_de_treinos.services.exceptions.DatabaseException;
+import com.barros.gestao_de_treinos.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,7 +24,7 @@ public class UsuarioService {
 
     public Usuario findById(Long id) {
         Optional<Usuario> obj = respository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Usuario insert(Usuario obj) {
@@ -28,7 +32,13 @@ public class UsuarioService {
     }
 
     public void delete(Long id) {
-        respository.deleteById(id);
+        try {
+            respository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public Usuario update(Long id, Usuario obj) {
