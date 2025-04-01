@@ -4,6 +4,7 @@ import com.barros.gestao_de_treinos.entities.Usuario;
 import com.barros.gestao_de_treinos.repositories.UsuarioRepository;
 import com.barros.gestao_de_treinos.services.exceptions.DatabaseException;
 import com.barros.gestao_de_treinos.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -42,9 +43,13 @@ public class UsuarioService {
     }
 
     public Usuario update(Long id, Usuario obj) {
-        Usuario entity = respository.getReferenceById(id);
-        updateData(entity, obj);
-        return respository.save(entity);
+        try {
+            Usuario entity = respository.getReferenceById(id);
+            updateData(entity, obj);
+            return respository.save(entity);
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(Usuario entity, Usuario obj) {
