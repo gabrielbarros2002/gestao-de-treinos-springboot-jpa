@@ -52,8 +52,8 @@ public class TestConfig implements CommandLineRunner {
 
         exercicioRepository.saveAll(Arrays.asList(exercicio1, exercicio2, exercicio3));
 
-        Treino treino1 = new Treino(null, "Full body", usuario1, usuario2);
-        Treino treino2 = new Treino(null, "Costas", usuario1, usuario2);
+        Treino treino1 = new Treino(null, "Full body", usuario2);
+        Treino treino2 = new Treino(null, "Costas", usuario2);
 
         treinoRepository.saveAll(Arrays.asList(treino1, treino2));
 
@@ -62,5 +62,10 @@ public class TestConfig implements CommandLineRunner {
         TreinoExercicio treinoExercicio3 = new TreinoExercicio(treino1, exercicio3, 3, 10);
 
         treinoExercicioRepository.saveAll(Arrays.asList(treinoExercicio1, treinoExercicio2, treinoExercicio3));
+
+        usuario1.addTreino(treino1);
+        usuario1.addTreino(treino2);
+
+        usuarioRepository.save(usuario1);
     }
 }

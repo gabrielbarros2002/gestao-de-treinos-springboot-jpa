@@ -1,6 +1,7 @@
 package com.barros.gestao_de_treinos.entities;
 
 import com.barros.gestao_de_treinos.entities.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -24,11 +25,13 @@ public class Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     private Perfil perfil;
 
-    @OneToMany(mappedBy = "aluno")
-    private List<Treino> treinosComoAluno = new ArrayList<>();
-
-    @OneToMany(mappedBy = "instrutor")
-    private List<Treino> treinosComoInstrutor = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "aluno_treino",
+            joinColumns = @JoinColumn(name = "aluno_id"),
+            inverseJoinColumns = @JoinColumn(name = "treino_id")
+    )
+    private List<Treino> treinos = new ArrayList<>();
 
     public Usuario() {
     }
@@ -90,20 +93,12 @@ public class Usuario implements Serializable {
         this.perfil = perfil;
     }
 
-    public List<Treino> getTreinosComoAluno() {
-        return treinosComoAluno;
+    public List<Treino> getTreinos() {
+        return treinos;
     }
 
-    public void setTreinosComoAluno(List<Treino> treinosComoAluno) {
-        this.treinosComoAluno = treinosComoAluno;
-    }
-
-    public List<Treino> getTreinosComoInstrutor() {
-        return treinosComoInstrutor;
-    }
-
-    public void setTreinosComoInstrutor(List<Treino> treinosComoInstrutor) {
-        this.treinosComoInstrutor = treinosComoInstrutor;
+    public void addTreino(Treino treino) {
+        this.treinos.add(treino);
     }
 
     @Override
@@ -127,6 +122,7 @@ public class Usuario implements Serializable {
                 ", senha='" + senha + '\'' +
                 ", dataNascimento=" + dataNascimento +
                 ", perfil=" + perfil +
+                ", treinos=" + treinos +
                 '}';
     }
 }

@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Treino implements Serializable {
@@ -20,9 +18,8 @@ public class Treino implements Serializable {
     private Set<TreinoExercicio> exercicios;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "aluno_id", nullable = false)
-    private Usuario aluno;
+    @ManyToMany(mappedBy = "treinos")
+    private List<Usuario> alunos = new ArrayList<>();
 
     @JsonIgnore
     @ManyToOne
@@ -32,11 +29,10 @@ public class Treino implements Serializable {
     public Treino() {
     }
 
-    public Treino(Long id, String nome, Usuario aluno, Usuario instrutor) {
+    public Treino(Long id, String nome, Usuario instrutor) {
         this.id = id;
         this.nome = nome;
         this.exercicios = new HashSet<>();
-        this.aluno = aluno;
         this.instrutor = instrutor;
     }
 
@@ -64,12 +60,12 @@ public class Treino implements Serializable {
         this.exercicios = exercicios;
     }
 
-    public Usuario getAluno() {
-        return aluno;
+    public List<Usuario> getAlunos() {
+        return alunos;
     }
 
-    public void setAluno(Usuario aluno) {
-        this.aluno = aluno;
+    public void setAlunos(List<Usuario> alunos) {
+        this.alunos = alunos;
     }
 
     public Usuario getInstrutor() {
@@ -98,7 +94,7 @@ public class Treino implements Serializable {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", exercicios=" + exercicios +
-                ", aluno=" + aluno +
+                ", alunos=" + alunos +
                 ", instrutor=" + instrutor +
                 '}';
     }
