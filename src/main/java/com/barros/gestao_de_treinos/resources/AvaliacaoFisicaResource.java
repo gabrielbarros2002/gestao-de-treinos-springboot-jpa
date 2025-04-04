@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/usuarios")
+@RequestMapping(value = "/avaliacao-fisica")
 public class AvaliacaoFisicaResource {
 
     @Autowired

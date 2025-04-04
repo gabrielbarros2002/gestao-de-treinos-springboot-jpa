@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/treinos")
+@RequestMapping(value = "/treino")
 public class TreinoResource {
 
     @Autowired
