@@ -17,24 +17,24 @@ import java.util.Optional;
 public class UsuarioService {
 
     @Autowired
-    private UsuarioRepository respository;
+    private UsuarioRepository repository;
 
     public List<Usuario> findAll() {
-        return respository.findAll();
+        return repository.findAll();
     }
 
     public Usuario findById(Long id) {
-        Optional<Usuario> obj = respository.findById(id);
+        Optional<Usuario> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Usuario insert(Usuario obj) {
-        return respository.save(obj);
+        return repository.save(obj);
     }
 
     public void delete(Long id) {
         try {
-            respository.deleteById(id);
+            repository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException(id);
         } catch (DataIntegrityViolationException e) {
@@ -44,9 +44,9 @@ public class UsuarioService {
 
     public Usuario update(Long id, Usuario obj) {
         try {
-            Usuario entity = respository.getReferenceById(id);
+            Usuario entity = repository.getReferenceById(id);
             updateData(entity, obj);
-            return respository.save(entity);
+            return repository.save(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
         }

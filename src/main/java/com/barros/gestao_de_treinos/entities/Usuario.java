@@ -1,13 +1,13 @@
 package com.barros.gestao_de_treinos.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.barros.gestao_de_treinos.entities.enums.Perfil;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,21 +18,28 @@ public class Usuario implements Serializable {
     private Long id;
     private String nome;
     private String email;
-    private String senhaHash;
+    private String senha;
     private LocalDate dataNascimento;
-    private LocalDateTime dataCriacao;
+
+    @Enumerated(EnumType.STRING)
+    private Perfil perfil;
+
+    @OneToMany(mappedBy = "aluno")
+    private List<Treino> treinosComoAluno = new ArrayList<>();
+
+    @OneToMany(mappedBy = "instrutor")
+    private List<Treino> treinosComoInstrutor = new ArrayList<>();
 
     public Usuario() {
     }
 
-    public Usuario(Long id, String nome, String email, String senhaHash, LocalDate dataNascimento,
-            LocalDateTime dataCriacao) {
+    public Usuario(Long id, String nome, String email, String senha, LocalDate dataNascimento, Perfil perfil) {
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.senhaHash = senhaHash;
+        this.senha = senha;
         this.dataNascimento = dataNascimento;
-        this.dataCriacao = dataCriacao;
+        this.perfil = perfil;
     }
 
     public Long getId() {
@@ -59,12 +66,12 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getSenhaHash() {
-        return senhaHash;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setSenhaHash(String senhaHash) {
-        this.senhaHash = senhaHash;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public LocalDate getDataNascimento() {
@@ -75,12 +82,28 @@ public class Usuario implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+    public Perfil getPerfil() {
+        return perfil;
     }
 
-    public void setDataCriacao(LocalDateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+
+    public List<Treino> getTreinosComoAluno() {
+        return treinosComoAluno;
+    }
+
+    public void setTreinosComoAluno(List<Treino> treinosComoAluno) {
+        this.treinosComoAluno = treinosComoAluno;
+    }
+
+    public List<Treino> getTreinosComoInstrutor() {
+        return treinosComoInstrutor;
+    }
+
+    public void setTreinosComoInstrutor(List<Treino> treinosComoInstrutor) {
+        this.treinosComoInstrutor = treinosComoInstrutor;
     }
 
     @Override
@@ -101,9 +124,9 @@ public class Usuario implements Serializable {
                 "id=" + id +
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
-                ", senhaHash='" + senhaHash + '\'' +
+                ", senha='" + senha + '\'' +
                 ", dataNascimento=" + dataNascimento +
-                ", dataCriacao=" + dataCriacao +
+                ", perfil=" + perfil +
                 '}';
     }
 }

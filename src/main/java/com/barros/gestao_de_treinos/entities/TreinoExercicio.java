@@ -15,19 +15,14 @@ public class TreinoExercicio implements Serializable {
 
     private Integer series;
     private Integer repeticoes;
-    private Double cargaKg;
-    private Integer descansoSegundos;
 
     public TreinoExercicio() {
     }
 
-    public TreinoExercicio(Treino treino, Exercicio exercicio, Integer series, Integer repeticoes, Double cargaKg,
-            Integer descansoSegundos) {
+    public TreinoExercicio(Treino treino, Exercicio exercicio, Integer series, Integer repeticoes) {
         this.id = new TreinoExercicioPK(treino, exercicio);
         this.series = series;
         this.repeticoes = repeticoes;
-        this.cargaKg = cargaKg;
-        this.descansoSegundos = descansoSegundos;
     }
 
     @JsonIgnore
@@ -61,22 +56,6 @@ public class TreinoExercicio implements Serializable {
 
     public void setRepeticoes(Integer repeticoes) {
         this.repeticoes = repeticoes;
-    }
-
-    public Double getCargaKg() {
-        return cargaKg;
-    }
-
-    public void setCargaKg(Double cargaKg) {
-        this.cargaKg = cargaKg;
-    }
-
-    public Integer getDescansoSegundos() {
-        return descansoSegundos;
-    }
-
-    public void setDescansoSegundos(Integer descansoSegundos) {
-        this.descansoSegundos = descansoSegundos;
     }
 
     @Override

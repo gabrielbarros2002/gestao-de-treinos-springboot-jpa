@@ -1,8 +1,10 @@
 package com.barros.gestao_de_treinos.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,12 +19,25 @@ public class Treino implements Serializable {
     @OneToMany(mappedBy = "id.treino")
     private Set<TreinoExercicio> exercicios;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "aluno_id", nullable = false)
+    private Usuario aluno;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "instrutor_id", nullable = false)
+    private Usuario instrutor;
+
     public Treino() {
     }
 
-    public Treino(Long id, String nome) {
+    public Treino(Long id, String nome, Usuario aluno, Usuario instrutor) {
         this.id = id;
         this.nome = nome;
+        this.exercicios = new HashSet<>();
+        this.aluno = aluno;
+        this.instrutor = instrutor;
     }
 
     public Long getId() {
@@ -49,6 +64,22 @@ public class Treino implements Serializable {
         this.exercicios = exercicios;
     }
 
+    public Usuario getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Usuario aluno) {
+        this.aluno = aluno;
+    }
+
+    public Usuario getInstrutor() {
+        return instrutor;
+    }
+
+    public void setInstrutor(Usuario instrutor) {
+        this.instrutor = instrutor;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -59,5 +90,16 @@ public class Treino implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Treino{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", exercicios=" + exercicios +
+                ", aluno=" + aluno +
+                ", instrutor=" + instrutor +
+                '}';
     }
 }
