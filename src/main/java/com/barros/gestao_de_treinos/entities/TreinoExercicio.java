@@ -13,7 +13,10 @@ public class TreinoExercicio implements Serializable {
     @EmbeddedId
     private TreinoExercicioPK id;
 
+    @Column(nullable = false)
     private Integer series;
+
+    @Column(nullable = false)
     private Integer repeticoes;
 
     public TreinoExercicio() {

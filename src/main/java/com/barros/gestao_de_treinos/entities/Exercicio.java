@@ -11,7 +11,10 @@ public class Exercicio implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String nome;
+
     private String descricao;
 
     @ManyToOne

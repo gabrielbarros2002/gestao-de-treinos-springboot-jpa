@@ -17,18 +17,29 @@ public class AvaliacaoFisica implements Serializable {
     @JoinColumn(name = "aluno_id", nullable = false)
     private Usuario aluno;
 
+    @Column(nullable = false)
     private LocalDate data;
+
+    @Column(nullable = false)
     private Double peso;
+
+    @Column(nullable = false)
     private Double altura;
+
+    @Column(nullable = false)
     private Double imc;
+
+    @Column(nullable = false)
     private Double percentualGordura;
+
+    @Column(nullable = false)
     private Double massaMuscularKg;
 
     public AvaliacaoFisica() {
     }
 
     public AvaliacaoFisica(Long id, Usuario aluno, LocalDate data, Double peso, Double altura, Double imc,
-                           Double percentualGordura, Double massaMuscularKg) {
+            Double percentualGordura, Double massaMuscularKg) {
         this.id = id;
         this.aluno = aluno;
         this.data = data;

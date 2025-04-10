@@ -12,6 +12,8 @@ public class Treino implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String nome;
 
     @OneToMany(mappedBy = "id.treino")
