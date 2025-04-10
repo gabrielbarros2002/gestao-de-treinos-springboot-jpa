@@ -56,4 +56,8 @@ public class UsuarioService {
         entity.setNome(obj.getNome());
         entity.setEmail(obj.getEmail());
     }
+
+    public Usuario autenticar(String email, String senha) {
+        return repository.findByEmailAndSenha(email, senha).orElse(null);
+    }
 }

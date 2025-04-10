@@ -3,6 +3,7 @@ package com.barros.gestao_de_treinos.resources;
 import com.barros.gestao_de_treinos.entities.Usuario;
 import com.barros.gestao_de_treinos.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -46,5 +47,16 @@ public class UsuarioResource {
     public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario obj) {
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        Usuario usuario = service.autenticar(loginRequest.getEmail(), loginRequest.getSenha());
+
+        if (usuario != null) {
+            return ResponseEntity.ok(usuario);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
+        }
     }
 }
