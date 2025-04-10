@@ -2,6 +2,7 @@ package com.barros.gestao_de_treinos.resources;
 
 import com.barros.gestao_de_treinos.entities.Treino;
 import com.barros.gestao_de_treinos.services.TreinoService;
+import com.barros.gestao_de_treinos.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,9 @@ public class TreinoResource {
 
     @Autowired
     private TreinoService service;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @GetMapping
     public ResponseEntity<List<Treino>> findAll() {
@@ -37,5 +41,11 @@ public class TreinoResource {
     public ResponseEntity<Treino> update(@PathVariable Long id, @RequestBody Treino obj) {
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping(value = "/findTreinosByAlunoId")
+    public ResponseEntity<List<Treino>> findTreinosByAlunoId(@RequestBody Long alunoId) {
+        List<Treino> treinoList =  usuarioService.findById(alunoId).getTreinos();
+        return ResponseEntity.ok().body(treinoList);
     }
 }
