@@ -3,6 +3,8 @@ package com.barros.gestao_de_treinos.entities;
 import com.barros.gestao_de_treinos.entities.PK.TreinoExercicioPK;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -13,9 +15,13 @@ public class TreinoExercicio implements Serializable {
     @EmbeddedId
     private TreinoExercicioPK id;
 
+    @NotNull(message = "O número de séries é obrigatório")
+    @Min(value = 1, message = "Deve ter pelo menos 1 série")
     @Column(nullable = false)
     private Integer series;
 
+    @NotNull(message = "O número de repetições é obrigatório")
+    @Min(value = 1, message = "Deve ter pelo menos 1 repetição")
     @Column(nullable = false)
     private Integer repeticoes;
 
