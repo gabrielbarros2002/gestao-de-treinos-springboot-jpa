@@ -1,36 +1,46 @@
 package com.barros.gestao_de_treinos.entities;
 
 import com.barros.gestao_de_treinos.entities.enums.Perfil;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "usuarios")
 public class Usuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotBlank(message = "O nome é obrigatório")
+    @Size(min = 3, max = 100, message = "O nome deve ter entre {min} e {max} caracteres")
+    @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(nullable = false, unique = true)
+    @NotBlank(message = "O email é obrigatório")
+    @Email(message = "Por favor, forneça um endereço de email válido")
+    @Column(nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(nullable = false)
+    @NotBlank(message = "A senha é obrigatória")
+    @Size(min = 8, message = "A senha deve ter no mínimo {min} caracteres")
+    @Column(nullable = false, length = 50)
     private String senha;
 
+    @NotNull(message = "A data de nascimento é obrigatória")
+    @Past(message = "A data de nascimento deve ser no passado")
     @Column(nullable = false)
     private LocalDate dataNascimento;
 
+    @NotNull(message = "O perfil é obrigatório")
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
     private Perfil perfil;
 
     @ManyToMany
