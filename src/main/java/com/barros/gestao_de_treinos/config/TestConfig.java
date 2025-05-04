@@ -35,10 +35,10 @@ public class TestConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Usuario usuario1 = new Usuario(null, "Barros", "gabrielobarros11@gmail.com", "senha",
-                LocalDate.now(), Perfil.ALUNO);
-        Usuario usuario2 = new Usuario(null, "Lorenzo", "lorenzo@gmail.com", "senha",
-                LocalDate.now(), Perfil.INSTRUTOR);
+        Usuario usuario1 = new Usuario(null, "Barros", "gabrielobarros11@gmail.com", "senhasss",
+                LocalDate.of(2002, 10, 25), Perfil.ALUNO);
+        Usuario usuario2 = new Usuario(null, "Lorenzo", "lorenzo@gmail.com", "senhasss",
+                LocalDate.of(2001, 10, 25), Perfil.INSTRUTOR);
 
         usuarioRepository.saveAll(Arrays.asList(usuario1, usuario2));
 
