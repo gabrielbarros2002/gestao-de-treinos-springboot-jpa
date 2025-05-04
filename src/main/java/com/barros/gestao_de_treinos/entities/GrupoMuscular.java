@@ -2,19 +2,24 @@ package com.barros.gestao_de_treinos.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "grupos_musculares")
 public class GrupoMuscular implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @NotBlank(message = "O nome do grupo muscular é obrigatório")
+    @Size(min = 3, max = 50, message = "O nome deve ter entre {min} e {max} caracteres")
+    @Column(nullable = false, unique = true, length = 50)
     private String nome;
 
     @JsonIgnore
