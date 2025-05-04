@@ -57,7 +57,6 @@ public class AvaliacaoFisicaService {
         entity.setData(obj.getData());
         entity.setAltura(obj.getAltura());
         entity.setPeso(obj.getPeso());
-        entity.setImc(obj.getImc());
         entity.setPercentualGordura(obj.getPercentualGordura());
         entity.setMassaMuscularKg(obj.getMassaMuscularKg());
     }
