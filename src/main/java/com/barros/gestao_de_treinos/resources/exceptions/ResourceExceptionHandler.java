@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -38,12 +39,13 @@ public class ResourceExceptionHandler {
     public ResponseEntity<StandardError> handleValidationExceptions(ConstraintViolationException ex, HttpServletRequest request) {
         String erro = "Erro de validação";
         HttpStatus status = HttpStatus.BAD_REQUEST;
-        String message = ex.getConstraintViolations()
+        String message = "Um ou mais campos estão inválidos";
+        List<String> errors = ex.getConstraintViolations()
                 .stream()
                 .map(this::formatViolation)
-                .collect(Collectors.joining(" | "));
+                .toList();
         StandardError err = new StandardError(Instant.now(), status.value(), erro, message,
-                request.getRequestURI());
+                request.getRequestURI(), errors);
         return ResponseEntity.status(status).body(err);
     }
 
