@@ -2,6 +2,9 @@ package com.barros.gestao_de_treinos.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
 import java.util.*;
@@ -13,16 +16,20 @@ public class Treino implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @NotBlank(message = "O nome do treino é obrigatório")
+    @Size(min = 3, max = 100, message = "O nome deve ter entre {min} e {max} caracteres")
+    @Column(nullable = false, length = 100)
     private String nome;
 
-    @OneToMany(mappedBy = "id.treino")
+    @NotNull(message = "O treino deve conter exercícios")
+    @OneToMany(mappedBy = "id.treino", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<TreinoExercicio> exercicios;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "treinos")
     private List<Usuario> alunos = new ArrayList<>();
 
+    @NotNull(message = "O instrutor é obrigatório")
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "instrutor_id", nullable = false)
