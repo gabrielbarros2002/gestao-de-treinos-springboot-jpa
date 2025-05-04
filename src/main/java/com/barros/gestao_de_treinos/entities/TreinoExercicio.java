@@ -2,7 +2,10 @@ package com.barros.gestao_de_treinos.entities;
 
 import com.barros.gestao_de_treinos.entities.PK.TreinoExercicioPK;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,6 +13,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "treino_exercicios")
 public class TreinoExercicio implements Serializable {
 
     @EmbeddedId
