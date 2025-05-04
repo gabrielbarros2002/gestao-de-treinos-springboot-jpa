@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.*;
 
 @Entity
+@Table(name = "treinos")
 public class Treino implements Serializable {
 
     @Id
