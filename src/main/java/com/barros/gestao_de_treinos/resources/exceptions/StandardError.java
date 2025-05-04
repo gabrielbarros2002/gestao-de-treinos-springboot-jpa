@@ -2,6 +2,8 @@ package com.barros.gestao_de_treinos.resources.exceptions;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StandardError implements Serializable {
 
@@ -10,6 +12,7 @@ public class StandardError implements Serializable {
     private String error;
     private String message;
     private String path;
+    private List<String> errors;
 
     public StandardError() {
     }
@@ -20,6 +23,17 @@ public class StandardError implements Serializable {
         this.error = error;
         this.message = message;
         this.path = path;
+        this.errors = new ArrayList<>();
+    }
+
+    public StandardError(Instant timestamp, Integer status, String error, String message, String path,
+            List<String> errors) {
+        this.timestamp = timestamp;
+        this.status = status;
+        this.error = error;
+        this.message = message;
+        this.path = path;
+        this.errors = errors;
     }
 
     public Instant getTimestamp() {
@@ -60,5 +74,13 @@ public class StandardError implements Serializable {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public List<String> getErrors() {
+        return errors;
+    }
+
+    public void setErrors(List<String> errors) {
+        this.errors = errors;
     }
 }
