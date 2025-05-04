@@ -1,9 +1,13 @@
 package com.barros.gestao_de_treinos.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -28,33 +32,34 @@ public class AvaliacaoFisica implements Serializable {
     @NotNull(message = "O peso é obrigatório")
     @Positive(message = "O peso deve ser maior que zero")
     @Column(nullable = false, precision = 5, scale = 2)
-    private Double peso;
+    private BigDecimal peso;
 
     @NotNull(message = "A altura é obrigatória")
     @Positive(message = "A altura deve ser maior que zero")
     @Column(nullable = false, precision = 3, scale = 2)
-    private Double altura;
+    private BigDecimal altura;
 
     @NotNull(message = "O IMC é obrigatório")
     @Positive(message = "O IMC deve ser maior que zero")
     @Column(nullable = false, precision = 4, scale = 2)
-    private Double imc;
+    private BigDecimal imc;
 
     @NotNull(message = "O percentual de gordura é obrigatório")
     @Positive(message = "O percentual de gordura deve ser maior que zero")
     @Column(nullable = false, precision = 4, scale = 2)
-    private Double percentualGordura;
+    private BigDecimal percentualGordura;
 
     @NotNull(message = "A massa muscular é obrigatória")
     @Positive(message = "A massa muscular deve ser maior que zero")
     @Column(nullable = false, precision = 5, scale = 2)
-    private Double massaMuscularKg;
+    private BigDecimal massaMuscularKg;
 
     @PrePersist
     @PreUpdate
     private void calcularIMC() {
-        if (peso != null && altura != null && altura > 0) {
-            this.imc = peso / (altura * altura);
+        if (peso != null && altura != null && altura.compareTo(BigDecimal.ZERO) > 0) {
+            BigDecimal alturaAoQuadrado = altura.multiply(altura);
+            this.imc = peso.divide(alturaAoQuadrado, 2, RoundingMode.HALF_EVEN);
         }
     }
 
@@ -78,41 +83,41 @@ public class AvaliacaoFisica implements Serializable {
         this.data = data;
     }
 
-    public Double getPeso() {
+    public BigDecimal getPeso() {
         return peso;
     }
 
-    public void setPeso(Double peso) {
+    public void setPeso(BigDecimal peso) {
         this.peso = peso;
         calcularIMC();
     }
 
-    public Double getAltura() {
+    public BigDecimal getAltura() {
         return altura;
     }
 
-    public void setAltura(Double altura) {
+    public void setAltura(BigDecimal altura) {
         this.altura = altura;
         calcularIMC();
     }
 
-    public Double getImc() {
+    public BigDecimal getImc() {
         return imc;
     }
 
-    public Double getPercentualGordura() {
+    public BigDecimal getPercentualGordura() {
         return percentualGordura;
     }
 
-    public void setPercentualGordura(Double percentualGordura) {
+    public void setPercentualGordura(BigDecimal percentualGordura) {
         this.percentualGordura = percentualGordura;
     }
 
-    public Double getMassaMuscularKg() {
+    public BigDecimal getMassaMuscularKg() {
         return massaMuscularKg;
     }
 
-    public void setMassaMuscularKg(Double massaMuscularKg) {
+    public void setMassaMuscularKg(BigDecimal massaMuscularKg) {
         this.massaMuscularKg = massaMuscularKg;
     }
 
