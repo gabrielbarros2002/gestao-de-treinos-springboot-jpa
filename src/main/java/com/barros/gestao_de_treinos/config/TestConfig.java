@@ -88,20 +88,21 @@ public class TestConfig implements CommandLineRunner {
 
         treinoRepository.saveAll(Arrays.asList(treino1, treino2, treino3));
 
-        List<TreinoExercicio> treinoExercicios = new ArrayList<>();
+        TreinoExercicio te1 = new TreinoExercicio(treino1, exercicio1, 4, 10);
+        TreinoExercicio te2 = new TreinoExercicio(treino1, exercicio6, 4, 12);
+        TreinoExercicio te3 = new TreinoExercicio(treino2, exercicio2, 4, 10);
+        TreinoExercicio te4 = new TreinoExercicio(treino2, exercicio5, 3, 12);
+        TreinoExercicio te5 = new TreinoExercicio(treino3, exercicio3, 4, 8);
+        TreinoExercicio te6 = new TreinoExercicio(treino3, exercicio4, 3, 10);
 
-        treinoExercicios.add(new TreinoExercicio(treino1, exercicio1, 4, 10));
-        treinoExercicios.add(new TreinoExercicio(treino1, exercicio6, 4, 12));
-        treinoExercicios.add(new TreinoExercicio(treino2, exercicio2, 4, 10));
-        treinoExercicios.add(new TreinoExercicio(treino2, exercicio5, 3, 12));
-        treinoExercicios.add(new TreinoExercicio(treino3, exercicio3, 4, 8));
-        treinoExercicios.add(new TreinoExercicio(treino3, exercicio4, 3, 10));
+        treino1.getExercicios().add(te1);
+        treino1.getExercicios().add(te2);
+        treino2.getExercicios().add(te3);
+        treino2.getExercicios().add(te4);
+        treino3.getExercicios().add(te5);
+        treino3.getExercicios().add(te6);
 
-        for (TreinoExercicio te : treinoExercicios) {
-            te.getTreino().getExercicios().add(te);
-        }
-
-        treinoExercicioRepository.saveAll(treinoExercicios);
+        treinoRepository.saveAll(Arrays.asList(treino1, treino2, treino3));
 
         usuario1.getTreinos().addAll(Arrays.asList(treino1, treino2));
         usuarioRepository.save(usuario1);
