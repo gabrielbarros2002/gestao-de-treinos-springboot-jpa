@@ -19,11 +19,6 @@ public class AvaliacaoFisica implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull(message = "O aluno é obrigatório")
-    @ManyToOne
-    @JoinColumn(name = "aluno_id", nullable = false)
-    private Usuario aluno;
-
     @NotNull(message = "A data da avaliação é obrigatória")
     @PastOrPresent(message = "A data da avaliação não pode ser no futuro")
     @Column(nullable = false)
@@ -54,6 +49,16 @@ public class AvaliacaoFisica implements Serializable {
     @Column(nullable = false, precision = 5, scale = 2)
     private BigDecimal massaMuscularKg;
 
+    @NotNull(message = "O instrutor é obrigatório")
+    @ManyToOne
+    @JoinColumn(name = "instrutor_id", nullable = false)
+    private Usuario instrutor;
+
+    @NotNull(message = "O aluno é obrigatório")
+    @ManyToOne
+    @JoinColumn(name = "aluno_id", nullable = false)
+    private Usuario aluno;
+
     @PrePersist
     @PreUpdate
     private void calcularIMC() {
@@ -67,12 +72,8 @@ public class AvaliacaoFisica implements Serializable {
         return id;
     }
 
-    public Usuario getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Usuario aluno) {
-        this.aluno = aluno;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public LocalDate getData() {
@@ -89,7 +90,6 @@ public class AvaliacaoFisica implements Serializable {
 
     public void setPeso(BigDecimal peso) {
         this.peso = peso;
-        calcularIMC();
     }
 
     public BigDecimal getAltura() {
@@ -98,7 +98,6 @@ public class AvaliacaoFisica implements Serializable {
 
     public void setAltura(BigDecimal altura) {
         this.altura = altura;
-        calcularIMC();
     }
 
     public BigDecimal getImc() {
@@ -119,6 +118,22 @@ public class AvaliacaoFisica implements Serializable {
 
     public void setMassaMuscularKg(BigDecimal massaMuscularKg) {
         this.massaMuscularKg = massaMuscularKg;
+    }
+
+    public Usuario getInstrutor() {
+        return instrutor;
+    }
+
+    public void setInstrutor(Usuario instrutor) {
+        this.instrutor = instrutor;
+    }
+
+    public Usuario getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Usuario aluno) {
+        this.aluno = aluno;
     }
 
     @Override
