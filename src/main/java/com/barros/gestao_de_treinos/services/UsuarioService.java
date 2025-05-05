@@ -55,6 +55,8 @@ public class UsuarioService {
     private void updateData(Usuario entity, Usuario obj) {
         entity.setNome(obj.getNome());
         entity.setEmail(obj.getEmail());
+        entity.setDataNascimento(obj.getDataNascimento());
+        entity.setSenha(obj.getSenha());
     }
 
     public Usuario autenticar(String email, String senha) {

@@ -53,11 +53,12 @@ public class AvaliacaoFisicaService {
     }
 
     private void updateData(AvaliacaoFisica entity, AvaliacaoFisica obj) {
-        entity.setAluno(obj.getAluno());
         entity.setData(obj.getData());
         entity.setAltura(obj.getAltura());
         entity.setPeso(obj.getPeso());
         entity.setPercentualGordura(obj.getPercentualGordura());
         entity.setMassaMuscularKg(obj.getMassaMuscularKg());
+        entity.setAluno(obj.getAluno());
+        entity.setInstrutor(obj.getInstrutor());
     }
 }
