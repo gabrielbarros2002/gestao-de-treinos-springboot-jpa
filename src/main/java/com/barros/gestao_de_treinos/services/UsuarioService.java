@@ -1,7 +1,9 @@
 package com.barros.gestao_de_treinos.services;
 
+import com.barros.gestao_de_treinos.entities.Treino;
 import com.barros.gestao_de_treinos.entities.Usuario;
 import com.barros.gestao_de_treinos.entities.enums.Perfil;
+import com.barros.gestao_de_treinos.repositories.TreinoRepository;
 import com.barros.gestao_de_treinos.repositories.UsuarioRepository;
 import com.barros.gestao_de_treinos.services.exceptions.DatabaseException;
 import com.barros.gestao_de_treinos.services.exceptions.ResourceNotFoundException;
@@ -11,14 +13,19 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
 
     @Autowired
     private UsuarioRepository repository;
+
+    @Autowired
+    private TreinoRepository treinoRepository;
 
     public List<Usuario> findAll() {
         return repository.findAll();
@@ -50,6 +57,9 @@ public class UsuarioService {
             return repository.save(entity);
         } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Erro ao atualizar usuário: " + e.getMessage(), e);
         }
     }
 
@@ -58,6 +68,19 @@ public class UsuarioService {
         entity.setEmail(obj.getEmail());
         entity.setDataNascimento(obj.getDataNascimento());
         entity.setSenha(obj.getSenha());
+
+        if (obj.getTreinos() == null) {
+            obj.setTreinos(new HashSet<>());
+        }
+        List<Treino> treinosAtualizados = Optional.ofNullable(obj.getTreinos())
+                .orElseThrow(() -> new RuntimeException("Treinos não foram enviados"))
+                .stream()
+                .map(t -> treinoRepository.findById(t.getId())
+                        .orElseThrow(() -> new RuntimeException("Treino com ID " + t.getId() + " não encontrado")))
+                .toList();
+
+        entity.getTreinos().clear();
+        entity.getTreinos().addAll(treinosAtualizados);
     }
 
     public Usuario autenticar(String email, String senha) {

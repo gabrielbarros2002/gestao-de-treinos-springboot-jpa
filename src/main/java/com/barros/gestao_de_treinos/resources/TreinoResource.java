@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/treino")
@@ -44,8 +45,8 @@ public class TreinoResource {
     }
 
     @GetMapping(value = "/findTreinosByAlunoId")
-    public ResponseEntity<List<Treino>> findTreinosByAlunoId(@RequestBody Long alunoId) {
-        List<Treino> treinoList =  usuarioService.findById(alunoId).getTreinos();
-        return ResponseEntity.ok().body(treinoList);
+    public ResponseEntity<Set<Treino>> findTreinosByAlunoId(@RequestBody Long alunoId) {
+        Set<Treino> treinos =  usuarioService.findById(alunoId).getTreinos();
+        return ResponseEntity.ok().body(treinos);
     }
 }
