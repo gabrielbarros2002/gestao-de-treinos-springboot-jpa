@@ -68,6 +68,18 @@ public class AvaliacaoFisica implements Serializable {
         }
     }
 
+    public AvaliacaoFisica(Long id, LocalDate data, BigDecimal peso, BigDecimal altura, BigDecimal percentualGordura,
+            BigDecimal massaMuscularKg, Usuario instrutor, Usuario aluno) {
+        this.id = id;
+        this.data = data;
+        this.peso = peso;
+        this.altura = altura;
+        this.percentualGordura = percentualGordura;
+        this.massaMuscularKg = massaMuscularKg;
+        this.instrutor = instrutor;
+        this.aluno = aluno;
+    }
+
     public Long getId() {
         return id;
     }
