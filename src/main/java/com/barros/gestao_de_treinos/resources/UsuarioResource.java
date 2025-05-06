@@ -59,4 +59,17 @@ public class UsuarioResource {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Usuário ou senha inválidos");
         }
     }
+
+    @GetMapping("/alunos")
+    public ResponseEntity<List<Usuario>> findAllAlunos() {
+        List<Usuario> alunos = service.findAllAlunos();
+        return ResponseEntity.ok().body(alunos);
+    }
+
+    @GetMapping("/instrutores")
+    public ResponseEntity<List<Usuario>> findAllInstrutores() {
+        List<Usuario> alunos = service.findAllInstrutores();
+        return ResponseEntity.ok().body(alunos);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.barros.gestao_de_treinos.services;
 
 import com.barros.gestao_de_treinos.entities.Usuario;
+import com.barros.gestao_de_treinos.entities.enums.Perfil;
 import com.barros.gestao_de_treinos.repositories.UsuarioRepository;
 import com.barros.gestao_de_treinos.services.exceptions.DatabaseException;
 import com.barros.gestao_de_treinos.services.exceptions.ResourceNotFoundException;
@@ -61,5 +62,13 @@ public class UsuarioService {
 
     public Usuario autenticar(String email, String senha) {
         return repository.findByEmailAndSenha(email, senha).orElse(null);
+    }
+
+    public List<Usuario> findAllAlunos() {
+        return repository.findByPerfil(Perfil.ALUNO);
+    }
+
+    public List<Usuario> findAllInstrutores() {
+        return repository.findByPerfil(Perfil.INSTRUTOR);
     }
 }
