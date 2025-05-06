@@ -45,7 +45,7 @@ public class Usuario implements Serializable {
 
     @ManyToMany
     @JoinTable(
-            name = "aluno_treino",
+            name = "aluno_treinos",
             joinColumns = @JoinColumn(name = "aluno_id"),
             inverseJoinColumns = @JoinColumn(name = "treino_id")
     )
