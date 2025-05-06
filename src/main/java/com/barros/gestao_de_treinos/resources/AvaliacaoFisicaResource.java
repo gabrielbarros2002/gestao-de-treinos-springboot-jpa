@@ -56,4 +56,13 @@ public class AvaliacaoFisicaResource {
         }
         return ResponseEntity.ok(avaliacoes);
     }
+
+    @GetMapping("/instrutor/{instrutorId}")
+    public ResponseEntity<List<AvaliacaoFisica>> buscarAvaliacoesPorInstrutor(@PathVariable Long instrutorId) {
+        List<AvaliacaoFisica> avaliacoes = service.buscarAvaliacoesPorInstrutor(instrutorId);
+        if (avaliacoes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(avaliacoes);
+    }
 }

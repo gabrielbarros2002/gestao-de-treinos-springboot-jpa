@@ -10,4 +10,6 @@ public interface AvaliacaoFisicaRepository extends JpaRepository<AvaliacaoFisica
 
     List<AvaliacaoFisica> findByAlunoId(Long alunoId);
 
+    List<AvaliacaoFisica> findByInstrutorId(Long instrutorId);
+
 }

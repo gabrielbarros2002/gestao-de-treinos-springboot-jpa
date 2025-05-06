@@ -65,4 +65,8 @@ public class AvaliacaoFisicaService {
     public List<AvaliacaoFisica> buscarAvaliacoesPorAluno(Long alunoId) {
         return repository.findByAlunoId(alunoId);
     }
+
+    public List<AvaliacaoFisica> buscarAvaliacoesPorInstrutor(Long instrutorId) {
+        return repository.findByInstrutorId(instrutorId);
+    }
 }
