@@ -5,13 +5,17 @@ import com.barros.gestao_de_treinos.services.exceptions.ResourceNotFoundExceptio
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
@@ -55,4 +59,33 @@ public class ResourceExceptionHandler {
 
         return String.format("%s: %s.", parameterName, violation.getMessage());
     }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<StandardError> handleDataIntegrityViolation(DataIntegrityViolationException ex, HttpServletRequest request) {
+        String erro = "Erro de integridade de dados";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        String message = "Violação de restrição única";
+        String detalhe = "";
+
+        Throwable rootCause = ex.getRootCause();
+        if (rootCause != null && rootCause.getMessage() != null) {
+            String rootMessage = rootCause.getMessage();
+            Pattern constraintPattern = Pattern.compile("viol[aá] a restri[cç][aã]o de unicidade \"([^\"]+)\"");
+            Matcher matcher = constraintPattern.matcher(rootMessage);
+
+            if (matcher.find()) {
+                String constraintName = matcher.group(1);
+                message = "Valor duplicado para campo único.";
+                detalhe = "Restrição violada: " + constraintName;
+            } else {
+                detalhe = rootMessage.length() > 200 ? rootMessage.substring(0, 200) + "..." : rootMessage;
+            }
+        }
+
+        StandardError err = new StandardError(Instant.now(), status.value(), erro, message, request.getRequestURI(),
+                List.of(detalhe));
+
+        return ResponseEntity.status(status).body(err);
+    }
+
 }
