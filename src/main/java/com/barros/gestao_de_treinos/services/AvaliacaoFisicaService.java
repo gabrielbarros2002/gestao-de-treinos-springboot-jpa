@@ -61,4 +61,8 @@ public class AvaliacaoFisicaService {
         entity.setAluno(obj.getAluno());
         entity.setInstrutor(obj.getInstrutor());
     }
+
+    public List<AvaliacaoFisica> buscarAvaliacoesPorAluno(Long alunoId) {
+        return repository.findByAlunoId(alunoId);
+    }
 }

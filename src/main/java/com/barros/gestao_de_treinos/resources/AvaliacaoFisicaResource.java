@@ -47,4 +47,13 @@ public class AvaliacaoFisicaResource {
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
     }
+
+    @GetMapping("/aluno/{alunoId}")
+    public ResponseEntity<List<AvaliacaoFisica>> buscarAvaliacoesPorAluno(@PathVariable Long alunoId) {
+        List<AvaliacaoFisica> avaliacoes = service.buscarAvaliacoesPorAluno(alunoId);
+        if (avaliacoes.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(avaliacoes);
+    }
 }
