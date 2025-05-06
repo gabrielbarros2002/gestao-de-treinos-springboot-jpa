@@ -6,9 +6,9 @@ import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
@@ -29,7 +29,7 @@ public class Usuario implements Serializable {
     private String email;
 
     @NotBlank(message = "A senha é obrigatória")
-    @Size(min = 8, message = "A senha deve ter no mínimo {min} caracteres")
+    @Size(min = 5, message = "A senha deve ter no mínimo {min} caracteres")
     @Column(nullable = false, length = 50)
     private String senha;
 
@@ -43,13 +43,13 @@ public class Usuario implements Serializable {
     @Column(nullable = false, length = 20)
     private Perfil perfil;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "aluno_treinos",
             joinColumns = @JoinColumn(name = "aluno_id"),
             inverseJoinColumns = @JoinColumn(name = "treino_id")
     )
-    private List<Treino> treinos = new ArrayList<>();
+    private Set<Treino> treinos = new HashSet<>();
 
     public Usuario() {
     }
@@ -111,8 +111,12 @@ public class Usuario implements Serializable {
         this.perfil = perfil;
     }
 
-    public List<Treino> getTreinos() {
+    public Set<Treino> getTreinos() {
         return treinos;
+    }
+
+    public void setTreinos(Set<Treino> treinos) {
+        this.treinos = treinos;
     }
 
     public void addTreino(Treino treino) {
