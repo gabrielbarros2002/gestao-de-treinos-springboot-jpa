@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface TreinoExercicioRepository extends JpaRepository<TreinoExercicio, TreinoExercicioPK> {
 
-    public List<TreinoExercicio> findById_Treino_Id(Long treinoId);
+    List<TreinoExercicio> findById_Treino_Id(Long treinoId);
 
 }

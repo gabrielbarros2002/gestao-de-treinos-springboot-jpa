@@ -17,4 +17,13 @@ public enum Perfil {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+    public static Perfil fromCodigo(String codigo) {
+        for (Perfil perfil : Perfil.values()) {
+            if (perfil.getCodigo().equalsIgnoreCase(codigo)) {
+                return perfil;
+            }
+        }
+        throw new IllegalArgumentException("Perfil inválido: " + codigo);
+    }
 }

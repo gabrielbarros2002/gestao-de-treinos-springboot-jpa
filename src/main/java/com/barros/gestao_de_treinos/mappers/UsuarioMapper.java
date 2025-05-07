@@ -15,7 +15,10 @@ public class UsuarioMapper {
         dto.setEmail(entity.getEmail());
         dto.setSenha(entity.getSenha());
         dto.setDataNascimento(entity.getDataNascimento());
-        dto.setPerfil(entity.getPerfil().name());
+
+        if (entity.getPerfil() != null) {
+            dto.setPerfil(entity.getPerfil().getCodigo());
+        }
 
         return dto;
     }
@@ -31,11 +34,7 @@ public class UsuarioMapper {
         entity.setDataNascimento(dto.getDataNascimento());
 
         if (dto.getPerfil() != null) {
-            try {
-                entity.setPerfil(Perfil.valueOf(dto.getPerfil()));
-            } catch (IllegalArgumentException e) {
-                throw new RuntimeException("Perfil inválido: " + dto.getPerfil());
-            }
+            entity.setPerfil(Perfil.fromCodigo(dto.getPerfil()));
         }
 
         return entity;

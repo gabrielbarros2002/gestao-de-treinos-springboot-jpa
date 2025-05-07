@@ -1,7 +1,5 @@
 package com.barros.gestao_de_treinos.DTOs;
 
-import com.barros.gestao_de_treinos.entities.Usuario;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
