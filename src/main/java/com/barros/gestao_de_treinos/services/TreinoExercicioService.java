@@ -3,6 +3,7 @@ package com.barros.gestao_de_treinos.services;
 import com.barros.gestao_de_treinos.entities.PK.TreinoExercicioPK;
 import com.barros.gestao_de_treinos.entities.TreinoExercicio;
 import com.barros.gestao_de_treinos.repositories.TreinoExercicioRepository;
+import com.barros.gestao_de_treinos.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,10 @@ public class TreinoExercicioService {
 
     public TreinoExercicio findById(TreinoExercicioPK id) {
         Optional<TreinoExercicio> obj = respository.findById(id);
-        return obj.get();
+        return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public List<TreinoExercicio> buscarTreinoExercicioPorTreino(Long treinoId) {
+        return respository.findById_Treino_Id(treinoId);
     }
 }
