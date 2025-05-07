@@ -54,7 +54,7 @@ public class ExercicioService {
 
     private void updateData(Exercicio entity, Exercicio obj) {
         entity.setNome(obj.getNome());
-        entity.setDescricao(obj.getNome());
+        entity.setDescricao(obj.getDescricao());
         entity.setGrupoMuscular(obj.getGrupoMuscular());
     }
 }
