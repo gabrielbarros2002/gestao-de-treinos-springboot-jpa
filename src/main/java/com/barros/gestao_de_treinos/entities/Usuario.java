@@ -1,14 +1,13 @@
 package com.barros.gestao_de_treinos.entities;
 
 import com.barros.gestao_de_treinos.entities.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "usuarios")
@@ -43,13 +42,17 @@ public class Usuario implements Serializable {
     @Column(nullable = false, length = 20)
     private Perfil perfil;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(
             name = "aluno_treinos",
             joinColumns = @JoinColumn(name = "aluno_id"),
             inverseJoinColumns = @JoinColumn(name = "treino_id")
     )
     private Set<Treino> treinos = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AvaliacaoFisica> avaliacoesComoAluno = new ArrayList<>();
 
     public Usuario() {
     }
@@ -121,6 +124,14 @@ public class Usuario implements Serializable {
 
     public void addTreino(Treino treino) {
         this.treinos.add(treino);
+    }
+
+    public List<AvaliacaoFisica> getAvaliacoesComoAluno() {
+        return avaliacoesComoAluno;
+    }
+
+    public void setAvaliacoesComoAluno(List<AvaliacaoFisica> avaliacoesComoAluno) {
+        this.avaliacoesComoAluno = avaliacoesComoAluno;
     }
 
     @Override
