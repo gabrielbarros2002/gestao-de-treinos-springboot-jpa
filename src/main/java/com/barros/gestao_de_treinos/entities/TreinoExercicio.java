@@ -2,6 +2,7 @@ package com.barros.gestao_de_treinos.entities;
 
 import com.barros.gestao_de_treinos.entities.PK.TreinoExercicioPK;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -17,7 +18,7 @@ import java.util.Objects;
 public class TreinoExercicio implements Serializable {
 
     @EmbeddedId
-    private TreinoExercicioPK id = new TreinoExercicioPK();
+    private TreinoExercicioPK id;
 
     @NotNull(message = "O número de séries é obrigatório")
     @Min(value = 1, message = "Deve ter pelo menos 1 série")
@@ -39,6 +40,7 @@ public class TreinoExercicio implements Serializable {
         this.repeticoes = repeticoes;
     }
 
+    @JsonIgnore
     public TreinoExercicioPK getId() {
         return id;
     }
@@ -47,7 +49,7 @@ public class TreinoExercicio implements Serializable {
         this.id = id;
     }
 
-    @JsonIgnore
+    @JsonIgnoreProperties({"nome", "exercicios", "alunos", "instrutor"})
     public Treino getTreino() {
         return id.getTreino();
     }
@@ -56,7 +58,6 @@ public class TreinoExercicio implements Serializable {
         id.setTreino(treino);
     }
 
-    @JsonIgnore
     public Exercicio getExercicio() {
         return id.getExercicio();
     }
