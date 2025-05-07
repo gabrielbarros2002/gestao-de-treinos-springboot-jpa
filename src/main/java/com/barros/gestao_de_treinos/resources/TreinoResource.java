@@ -1,5 +1,6 @@
 package com.barros.gestao_de_treinos.resources;
 
+import com.barros.gestao_de_treinos.DTOs.TreinoDTO;
 import com.barros.gestao_de_treinos.entities.Treino;
 import com.barros.gestao_de_treinos.services.TreinoService;
 import com.barros.gestao_de_treinos.services.UsuarioService;
@@ -34,9 +35,9 @@ public class TreinoResource {
     }
 
     @PostMapping
-    public ResponseEntity<Treino> insert(@RequestBody Treino obj) {
+    public ResponseEntity<TreinoDTO> insert(@RequestBody TreinoDTO obj) {
         obj = service.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getIdTreino()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
 
@@ -47,7 +48,7 @@ public class TreinoResource {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Treino> update(@PathVariable Long id, @RequestBody Treino obj) {
+    public ResponseEntity<TreinoDTO> update(@PathVariable Long id, @RequestBody TreinoDTO obj) {
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
     }

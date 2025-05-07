@@ -17,7 +17,7 @@ import java.util.Objects;
 public class TreinoExercicio implements Serializable {
 
     @EmbeddedId
-    private TreinoExercicioPK id;
+    private TreinoExercicioPK id = new TreinoExercicioPK();
 
     @NotNull(message = "O número de séries é obrigatório")
     @Min(value = 1, message = "Deve ter pelo menos 1 série")
@@ -30,12 +30,21 @@ public class TreinoExercicio implements Serializable {
     private Integer repeticoes;
 
     public TreinoExercicio() {
+        this.id = new TreinoExercicioPK();
     }
 
     public TreinoExercicio(Treino treino, Exercicio exercicio, Integer series, Integer repeticoes) {
         this.id = new TreinoExercicioPK(treino, exercicio);
         this.series = series;
         this.repeticoes = repeticoes;
+    }
+
+    public TreinoExercicioPK getId() {
+        return id;
+    }
+
+    public void setId(TreinoExercicioPK id) {
+        this.id = id;
     }
 
     @JsonIgnore
@@ -47,6 +56,7 @@ public class TreinoExercicio implements Serializable {
         id.setTreino(treino);
     }
 
+    @JsonIgnore
     public Exercicio getExercicio() {
         return id.getExercicio();
     }
@@ -70,6 +80,8 @@ public class TreinoExercicio implements Serializable {
     public void setRepeticoes(Integer repeticoes) {
         this.repeticoes = repeticoes;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

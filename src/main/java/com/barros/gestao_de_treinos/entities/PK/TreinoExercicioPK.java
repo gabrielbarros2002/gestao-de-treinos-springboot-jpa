@@ -2,6 +2,7 @@ package com.barros.gestao_de_treinos.entities.PK;
 
 import com.barros.gestao_de_treinos.entities.Exercicio;
 import com.barros.gestao_de_treinos.entities.Treino;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +15,7 @@ public class TreinoExercicioPK implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "treino_id")
+    @JsonIgnoreProperties({"nome", "exercicios", "alunos", "instrutor"})
     private Treino treino;
 
     @ManyToOne
