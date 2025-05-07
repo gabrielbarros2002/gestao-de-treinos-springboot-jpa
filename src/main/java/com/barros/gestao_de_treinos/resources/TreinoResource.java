@@ -44,9 +44,12 @@ public class TreinoResource {
         return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/findTreinosByAlunoId")
-    public ResponseEntity<Set<Treino>> findTreinosByAlunoId(@RequestBody Long alunoId) {
-        Set<Treino> treinos =  usuarioService.findById(alunoId).getTreinos();
+    @GetMapping(value = "/aluno/{alunoId}")
+    public ResponseEntity<List<Treino>> buscarTreinosPorAluno(@PathVariable Long alunoId) {
+        List<Treino> treinos =  service.buscarTreinosPorAluno(alunoId);
+        if (treinos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
         return ResponseEntity.ok().body(treinos);
     }
 }

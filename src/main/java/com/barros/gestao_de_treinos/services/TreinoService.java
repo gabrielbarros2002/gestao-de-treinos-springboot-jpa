@@ -52,4 +52,9 @@ public class TreinoService {
         entity.setNome(obj.getNome());
         entity.setExercicios(obj.getExercicios());
     }
+
+    public List<Treino> buscarTreinosPorAluno(Long alunoId) {
+        return repository.findByAlunosId(alunoId);
+    }
+
 }

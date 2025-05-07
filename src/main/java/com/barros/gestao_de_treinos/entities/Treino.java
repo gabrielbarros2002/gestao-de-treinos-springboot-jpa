@@ -28,7 +28,7 @@ public class Treino implements Serializable {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "treinos")
-    private List<Usuario> alunos = new ArrayList<>();
+    private Set<Usuario> alunos = new HashSet<>();
 
     @NotNull(message = "O instrutor é obrigatório")
     @JsonIgnore
@@ -70,11 +70,11 @@ public class Treino implements Serializable {
         this.exercicios = exercicios;
     }
 
-    public List<Usuario> getAlunos() {
+    public Set<Usuario> getAlunos() {
         return alunos;
     }
 
-    public void setAlunos(List<Usuario> alunos) {
+    public void setAlunos(Set<Usuario> alunos) {
         this.alunos = alunos;
     }
 
