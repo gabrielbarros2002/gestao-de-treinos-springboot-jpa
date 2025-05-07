@@ -12,11 +12,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -31,7 +29,7 @@ public class ResourceExceptionHandler {
     }
 
     @ExceptionHandler(DatabaseException.class)
-    public ResponseEntity<StandardError> database(ResourceNotFoundException e, HttpServletRequest request) {
+    public ResponseEntity<StandardError> database(DatabaseException e, HttpServletRequest request) {
         String error = "Database error";
         HttpStatus status = HttpStatus.BAD_REQUEST;
         StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
