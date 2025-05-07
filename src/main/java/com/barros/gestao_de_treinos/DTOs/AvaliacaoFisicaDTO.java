@@ -18,7 +18,7 @@ public class AvaliacaoFisicaDTO {
     private BigDecimal massaMuscularKg;
     private Long idInstrutor;
     private String nomeInstrutor;
-    private Usuario idAluno;
+    private Long idAluno;
     private String nomeAluno;
 
     public AvaliacaoFisicaDTO() {
@@ -97,11 +97,11 @@ public class AvaliacaoFisicaDTO {
         this.nomeInstrutor = nomeInstrutor;
     }
 
-    public Usuario getIdAluno() {
+    public Long getIdAluno() {
         return idAluno;
     }
 
-    public void setIdAluno(Usuario idAluno) {
+    public void setIdAluno(Long idAluno) {
         this.idAluno = idAluno;
     }
 
