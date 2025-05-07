@@ -2,6 +2,8 @@ package com.barros.gestao_de_treinos.DTOs;
 
 import java.util.List;
 
+import static com.barros.gestao_de_treinos.utils.Util.iniciarAtributosEmBranco;
+
 public class TreinoDTO {
 
     private Long idTreino;
@@ -11,6 +13,7 @@ public class TreinoDTO {
     private String nomeInstrutor;
 
     public TreinoDTO() {
+        iniciarAtributosEmBranco(this);
     }
 
     public Long getIdTreino() {

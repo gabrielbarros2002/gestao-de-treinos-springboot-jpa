@@ -1,5 +1,7 @@
 package com.barros.gestao_de_treinos.DTOs;
 
+import static com.barros.gestao_de_treinos.utils.Util.iniciarAtributosEmBranco;
+
 public class TreinoExercicioDTO {
 
     private Long idTreino;
@@ -10,6 +12,7 @@ public class TreinoExercicioDTO {
     private Integer repeticoes;
 
     public TreinoExercicioDTO() {
+        iniciarAtributosEmBranco(this);
     }
 
     public Long getIdTreino() {
