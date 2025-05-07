@@ -28,6 +28,10 @@ public class TreinoService {
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
+    public Treino insert(Treino obj) {
+        return repository.save(obj);
+    }
+
     public void delete(Long id) {
         try {
             repository.deleteById(id);
