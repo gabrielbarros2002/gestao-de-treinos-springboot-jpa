@@ -27,7 +27,7 @@ public class Exercicio implements Serializable {
 
     @NotNull(message = "O grupo muscular é obrigatório")
     @ManyToOne
-    @JoinColumn(name = "grupo_muscular_id", nullable = false)
+    @JoinColumn(name = "grupo_muscular_id", nullable = false, foreignKey = @ForeignKey(name = "fk_exercicio_grupomuscular"))
     private GrupoMuscular grupoMuscular;
 
     public Exercicio() {

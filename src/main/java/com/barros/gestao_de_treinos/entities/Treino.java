@@ -7,7 +7,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "treinos")
@@ -33,7 +35,7 @@ public class Treino implements Serializable {
     @NotNull(message = "O instrutor é obrigatório")
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "instrutor_id", nullable = false)
+    @JoinColumn(name = "instrutor_id", nullable = false, foreignKey = @ForeignKey(name = "fk_treino_instrutor"))
     private Usuario instrutor;
 
     public Treino() {

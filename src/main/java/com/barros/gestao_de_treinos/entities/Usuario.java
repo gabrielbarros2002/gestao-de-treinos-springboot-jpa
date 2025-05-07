@@ -45,8 +45,8 @@ public class Usuario implements Serializable {
     @ManyToMany()
     @JoinTable(
             name = "aluno_treinos",
-            joinColumns = @JoinColumn(name = "aluno_id"),
-            inverseJoinColumns = @JoinColumn(name = "treino_id")
+            joinColumns = @JoinColumn(name = "aluno_id", foreignKey = @ForeignKey(name = "fk_alunotreinos_aluno")),
+            inverseJoinColumns = @JoinColumn(name = "treino_id", foreignKey = @ForeignKey(name = "fk_alunotreinos_treino"))
     )
     private Set<Treino> treinos = new HashSet<>();
 

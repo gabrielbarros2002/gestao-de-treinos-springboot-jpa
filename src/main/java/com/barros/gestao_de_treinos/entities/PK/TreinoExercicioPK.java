@@ -4,6 +4,7 @@ import com.barros.gestao_de_treinos.entities.Exercicio;
 import com.barros.gestao_de_treinos.entities.Treino;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
@@ -14,12 +15,12 @@ import java.util.Objects;
 public class TreinoExercicioPK implements Serializable {
 
     @ManyToOne
-    @JoinColumn(name = "treino_id")
     @JsonIgnoreProperties({"nome", "exercicios", "alunos", "instrutor"})
+    @JoinColumn(name = "treino_id", foreignKey = @ForeignKey(name = "fk_treinoexercicio_treino"))
     private Treino treino;
 
     @ManyToOne
-    @JoinColumn(name = "exercicio_id")
+    @JoinColumn(name = "exercicio_id", foreignKey = @ForeignKey(name = "fk_treinoexercicio_exercicio"))
     private Exercicio exercicio;
 
     public TreinoExercicioPK() {

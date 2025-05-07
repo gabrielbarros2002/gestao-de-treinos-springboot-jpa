@@ -51,12 +51,12 @@ public class AvaliacaoFisica implements Serializable {
 
     @NotNull(message = "O instrutor é obrigatório")
     @ManyToOne
-    @JoinColumn(name = "instrutor_id", nullable = false)
+    @JoinColumn(name = "instrutor_id", nullable = false, foreignKey = @ForeignKey(name = "fk_avaliacaofisica_instrutor"))
     private Usuario instrutor;
 
     @NotNull(message = "O aluno é obrigatório")
     @ManyToOne
-    @JoinColumn(name = "aluno_id", nullable = false)
+    @JoinColumn(name = "aluno_id", nullable = false, foreignKey = @ForeignKey(name = "fk_avaliacaofisica_aluno"))
     private Usuario aluno;
 
     @PrePersist
